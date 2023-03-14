@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %}Dias de Trabalho{% endblock %} 
+{% block content%}
+
+
+
+<form method="POST">
+    <h3 align="center">Adicionar dias de Trabalho</h3>
+    <br />
+    <div class="form-group">
+      <label for="dateuser">Data</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateuser"
+        name="dateuser"
+      />
+    </div>
+    <div class="form-group">
+      <label for="notedias">Adicionar Notas</label>
+      <textarea name="notedias" id="notedias" class="form-control">Sem Notas</textarea>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <br/>
+
+  <h3 align="center">Dias de Trabalho</h3>
+  <table class="table table-bordeless" id="tabela"> 
+    <thead>
+      <tr>
+        <th scope="col">Data</th>
+        <th scope="col">Notas</th>
+        <th><input id="gfg" type="text" placeholder="Pesquisa"></th>
+      </tr>
+    </thead>
+  
+    <tbody id="geeks">
+ {% for dia in user.dias %}
+    
+    <tr>
+     <th scope="row" id="lista">{{ dia.dateuser }}</th> 
+     <th scope="row">{{ dia.datadias }}</th> 
+     <th >
+        <button type="button" class="close" onClick="deletedatadias({{ dia.id }})">
+         <span aria-hidden="true">&times;</span>
+        </button>
+      </th> 
+    </tr>
+ {% endfor %}
+  </tbody>
+  </table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+<script>
+$( function() {
+  $( "#dateuser" ).datepicker();
+} );
+</script>
+<script>
+  $(document).ready(function() {
+      $("#gfg").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#geeks tr").filter(function() {
+              $(this).toggle($(this).text()
+              .toLowerCase().indexOf(value) > -1)
+          });
+      });
+  });
+</script>
+
+{% endblock %}
